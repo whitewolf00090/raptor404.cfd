@@ -1,9 +1,15 @@
-/*basic reset */
-            
-            *{
-                margin: 0;
-                padding: 0;
-            }
-            
-            body {background: black;}
-            canvas {display:block;}
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: black;
+    overflow: hidden;
+}
+
+canvas {
+    display: block;
+}
