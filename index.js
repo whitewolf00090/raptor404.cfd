@@ -1,41 +1,50 @@
-const canvas = document.getElementById('matrixCanvas');
-const ctx = canvas.getContext('2d');
+        var c = document.getElementById("c");
+        var ctx = c.getContext("2d");
 
-// Set canvas dimensions to full window size
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+        //making the canvas full screen
+        c.height = window.innerHeight;
+        c.width = window.innerWidth;
 
-const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; // Example characters
-const fontSize = 16;
-const columns = canvas.width / fontSize;
+        //chinese characters - taken from the unicode charset
+        var matrix = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+        //converting the string into an array of single characters
+        matrix = matrix.split("");
 
-// Array to store the y-position of each column's falling character
-const drops = [];
-for (let i = 0; i < columns; i++) {
-    drops[i] = 1; // Start each column at the top
-}
+        var font_size = 10;
+        var columns = c.width/font_size; //number of columns for the rain
+        //an array of drops - one per column
+        var drops = [];
+        //x below is the x coordinate
+        //1 = y co-ordinate of the drop(same for every drop initially)
+        for(var x = 0; x < columns; x++)
+            drops[x] = 1; 
 
-function draw() {
-    // Semi-transparent black rectangle to create the fading trail effect
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+        //drawing the characters
+        function draw()
+        {
+            //Black BG for the canvas
+            //translucent BG to show trail
+            ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+            ctx.fillRect(0, 0, c.width, c.height);
 
-    ctx.fillStyle = '#0F0'; // Green color for the characters
-    ctx.font = `${fontSize}px monospace`;
+            ctx.fillStyle = "#5CE65C";//green text
+            ctx.font = font_size + "px arial";
+            //looping over drops
+            for(var i = 0; i < drops.length; i++)
+            {
+                //a random chinese character to print
+                var text = matrix[Math.floor(Math.random()*matrix.length)];
+                //x = i*font_size, y = value of drops[i]*font_size
+                ctx.fillText(text, i*font_size, drops[i]*font_size);
 
-    for (let i = 0; i < drops.length; i++) {
-        const text = characters.charAt(Math.floor(Math.random() * characters.length));
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                //sending the drop back to the top randomly after it has crossed the screen
+                //adding a randomness to the reset to make the drops scattered on the Y axis
+                if(drops[i]*font_size > c.height && Math.random() > 0.975)
+                    drops[i] = 0;
 
-        // Reset the drop to the top if it reaches the bottom or a random point
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
+                //incrementing Y coordinate
+                drops[i]++;
+            }
         }
 
-        // Increment the y-position of the drop
-        drops[i]++;
-    }
-}
-
-// Animate the effect
-setInterval(draw, 33); // Adjust speed as needed
+        setInterval(draw, 35);
