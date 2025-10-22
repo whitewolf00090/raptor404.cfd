@@ -1,0 +1,43 @@
+/* Basic reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: black;
+  overflow: hidden;
+  font-family: 'Courier New', monospace;
+}
+
+canvas {
+  display: block;
+}
+
+/* Glowing RAPTOR404 text */
+.matrix-logo {
+  position: fixed;
+  bottom: 40px;
+  right: 60px;
+  color: #00ff00;
+  font-size: 28px;
+  font-weight: bold;
+  text-shadow:
+    0 0 5px #00ff00,
+    0 0 10px #00ff00,
+    0 0 20px #00ff00,
+    0 0 40px #00ff00;
+  animation: flicker 2.5s infinite;
+  pointer-events: none;
+}
+
+/* Flickering neon effect */
+@keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    opacity: 1;
+  }
+  20%, 24%, 55% {
+    opacity: 0.2;
+  }
+}
