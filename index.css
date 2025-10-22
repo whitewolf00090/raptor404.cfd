@@ -1,11 +1,9 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden; /* Hide scrollbars */
-    background-color: black;
-}
-
-canvas {
-    display: block; /* Remove extra space below canvas */
-}
+/*basic reset */
+            
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            
+            body {background: black;}
+            canvas {display:block;}
